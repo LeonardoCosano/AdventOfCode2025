@@ -1,5 +1,5 @@
 def identifyRotation(line):
-	amount = int(line[1:3])
+	amount = int(line[1:])
 	rotation = line[0]
 	if rotation == "L":
 		rotation = 0
@@ -50,6 +50,8 @@ def main():
 	  rotation, amount = identifyRotation(line)
 	  arrowPosition = updateArrow(arrowPosition, rotation, amount)
 	  password = updatePassword(arrowPosition, password)
+	  if amount == 79 or amount == 148:
+	  	print ("Rotating " + str(amount) + " positions to the " + line[0] + " so new position is " + str(arrowPosition))
 	  
 	print ("Number of times the safe's dial pointed 0 is " + str(password))
 
