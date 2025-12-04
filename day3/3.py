@@ -1,21 +1,19 @@
-def TwoHighestValues(powerbank):
+def getPosition(digit, powerbank):
+	position = powerbank.find(digit)
+	return position
+
+def getHighestDigitInRange(strNumber, lowIndex, highIndex):
 	listOfDigits = []
-	for digit in powerbank:
+
+	for digit in strNumber[lowIndex:highIndex]:
 		listOfDigits.append(digit)
+
 	listOfDigits.sort(reverse=True)
-	print(listOfDigits)
-	return listOfDigits[0], listOfDigits[1]
+	return listOfDigits[0]
 
-def getJoltage(powerbank, highestValues):
-	indexFromHighestValue = powerbank.find(highestValues[0])
-	indexFrom2HighestValue = powerbank.find(highestValues[1])
-
-	if indexFromHighestValue < indexFrom2HighestValue:
-		print (highestValues[0] + highestValues[1])
-		return (highestValues[0] + highestValues[1])
-
-	print (highestValues[1] + highestValues[0])
-	return (highestValues[1] + highestValues[0])
+def computeJoltage(firstDigit, secondDigit):
+	strNumber = firstDigit + secondDigit
+	return int(strNumber)
 
 def sumJoltages(joltage, totalJoltage):
 	futureJoltage = totalJoltage + int(joltage)
@@ -27,10 +25,11 @@ def main():
 	# Read battery bank 
 	file = open("3.txt")
 	for powerbank in file:
-		print (powerbank)
-		highestValues = TwoHighestValues(powerbank)
-		joltage = getJoltage(powerbank, highestValues)
-		totalJoltage = sumJoltages(joltage, totalJoltage)
+		highestDigit = getHighestDigitInRange(powerbank, 0, len(powerbank)-2)
+		highestDigitPosition = getPosition(highestDigit, powerbank)
+		SecondHighestDigit = getHighestDigitInRange(powerbank, highestDigitPosition+1, len(powerbank)-1)
+		joltage = computeJoltage(highestDigit, SecondHighestDigit)
+		totalJoltage = sumJoltages(totalJoltage, joltage)
 
 	print ("Amount of joltage is " + str(totalJoltage))
 
